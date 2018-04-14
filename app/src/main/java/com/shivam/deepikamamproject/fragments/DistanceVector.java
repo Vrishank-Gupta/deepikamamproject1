@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -29,7 +31,7 @@ public class DistanceVector extends android.app.Fragment {
     public DistanceVector() {
         // Required empty public constructor
     }
-
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +41,10 @@ public class DistanceVector extends android.app.Fragment {
         final TextView textView = rootview.findViewById(R.id.textiewdistancevector);
         final ScrollView scroll1=rootview.findViewById(R.id.scrol6);
         final WebView wb=rootview.findViewById(R.id.web3);
+        wb.setWebChromeClient(new MyWebViewClient());
+
+        progressBar = (ProgressBar) rootview.findViewById(R.id.progressBar);
+        progressBar.setMax(100);
 
         BottomNavigationView bottomNavigationView = rootview.findViewById(R.id.bottom_navigation);
 
@@ -56,7 +62,7 @@ public class DistanceVector extends android.app.Fragment {
                                 wb.setVisibility(View.VISIBLE);
                                 scroll1.setVisibility(View.GONE);
                                 textView.setVisibility(View.GONE);
-                                wb.setWebViewClient(new AOVD.MyBrowser());
+                                wb.setWebViewClient(new WebViewClient());
                                 wb.getSettings().setLoadsImagesAutomatically(true);
                                 wb.getSettings().setJavaScriptEnabled(true);
                                 wb.getSettings().setJavaScriptEnabled(true);
@@ -65,7 +71,7 @@ public class DistanceVector extends android.app.Fragment {
                                 wb.getSettings().setAppCacheEnabled(true);
                                 wb.getSettings().setSupportZoom(true);
                                 wb.getSettings().setBuiltInZoomControls(true);
-                                wb.getSettings().setDisplayZoomControls(true);
+//                                wb.getSettings().setDisplayZoomControls(true);
                                 wb.animate();
                                 wb.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
                                 wb.loadUrl("https://ide.codingblocks.com/#/s/9886");
@@ -78,12 +84,15 @@ public class DistanceVector extends android.app.Fragment {
 
         return  rootview;}
 
-    static class MyBrowser extends WebViewClient {
+    private class MyWebViewClient extends WebChromeClient {
         @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
+        public void onProgressChanged(WebView view, int newProgress) {
+//            WebViewActivity.this.setValue(newProgress);
+            super.onProgressChanged(view, newProgress);
         }
+    }
+    public void setValue(int progress) {
+        progressBar.setProgress(progress);
     }
 
 }
