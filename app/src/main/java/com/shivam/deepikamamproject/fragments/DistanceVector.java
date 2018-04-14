@@ -71,7 +71,7 @@ public class DistanceVector extends android.app.Fragment {
                                 wb.getSettings().setAppCacheEnabled(true);
                                 wb.getSettings().setSupportZoom(true);
                                 wb.getSettings().setBuiltInZoomControls(true);
-//                                wb.getSettings().setDisplayZoomControls(true);
+                                wb.getSettings().setDisplayZoomControls(true);
                                 wb.animate();
                                 wb.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
                                 wb.loadUrl("https://ide.codingblocks.com/#/s/9886");
